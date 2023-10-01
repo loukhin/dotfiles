@@ -45,8 +45,9 @@ set -eufo pipefail
   "jq"
   "macos-trash"
   "shellcheck"
-  "sudo-touchid"
   "zoxide"
+
+  "artginzburg/tap/sudo-touchid"
 -}}
 
 {{ $casks := list
@@ -68,3 +69,5 @@ brew "{{ . }}"
 cask "{{ . }}"
 {{ end }}
 EOF
+
+sudo brew services start sudo-touchid
