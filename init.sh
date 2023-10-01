@@ -18,6 +18,8 @@ if ! chezmoi="$(command -v chezmoi)"; then
   unset chezmoi_install_script bin_dir
 fi
 
+set -- init loukhin --apply --keep-going "$@"
+
 echo "Running 'chezmoi $*'" >&2
 # exec: replace current process with chezmoi
-exec "$chezmoi" init loukhin --apply --keep-going "$@"
+exec "$chezmoi" "$@"
