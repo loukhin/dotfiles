@@ -40,5 +40,13 @@ _ssh_config_included=${=${${${${(@M)${(f)"$(cat ${${${(@M)${(f)"$(cat ~/.ssh/con
 _existing_hosts=($_existing_hosts $_ssh_config_included)
 zstyle ':completion:*:hosts' hosts $_existing_hosts
 
+zstyle ':completion:*:git-checkout:*' sort false
+zstyle -d ':completion:*' format
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+zstyle ':fzf-tab:*' switch-group '<' '>'
+zstyle ':fzf-tab:*' prefix ''
+
 autoload -Uz promptinit && promptinit && prompt powerlevel10k
 source ~/.p10k.zsh
