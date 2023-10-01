@@ -1,0 +1,24 @@
+#!/bin/bash
+
+source /tmp/chezmoi-utils.sh
+
+printf "${green}[22 - macOS] ${reset}"
+{{- if or (lt 22 (atoi (env "SCRIPTS_START_AT"))) (env "SKIP_MAS") }}
+echo "Skip installing Mac App Store apps via mas"
+exit 0
+{{ else }}
+echo "Install Mac App Store apps via mas"
+{{- end }}
+
+set -ufo pipefail
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+
+mas "AdGuard for Safari", id: 1440147259
+mas "Pure Paste", id: 1611378436
+mas "RunCat", id: 1429033973
+mas "Shareful", id: 1522267256
+mas "Toggl Track: Hours & Time Log", id: 1291898086
+mas "Velja", id: 1607635845
+
+EOF

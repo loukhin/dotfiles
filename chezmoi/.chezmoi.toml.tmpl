@@ -1,0 +1,10 @@
+{{- $name := "Supakit Khawmeewong" -}}
+{{- $email := "supakit.kmw@gmail.com" -}}
+{{- $username := "loukhin" -}}
+{{- $computer_name := promptString "What's this" "Hubble" -}}
+
+[data]
+  name = {{ $name | quote }}
+  email = {{ $email | quote }}
+  username = {{ $username | quote }}
+  computer_name = {{ $computer_name | quote }}

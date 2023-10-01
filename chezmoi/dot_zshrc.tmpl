@@ -1,0 +1,44 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+bindkey "^[[A" history-substring-search-up
+bindkey "^[[B" history-substring-search-down
+
+# zstyles
+[[ -r ~/.zstyles ]] && . ~/.zstyles
+
+# use antidote for plugin management
+export ANTIDOTE_HOME=${HOME}/.antidote
+[[ -d $ANTIDOTE_HOME ]] ||
+  git clone --depth 1 --quiet https://github.com/mattmc3/antidote $ANTIDOTE_HOME
+
+source $ANTIDOTE_HOME/antidote.zsh
+antidote load
+
+# Zoxide : prompt hook mode
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh --hook prompt)"
+fi
+
+if command -v pyenv &> /dev/null; then
+  eval "$(pyenv init -)"
+fi
+
+if command -v github-copilot-cli alias &> /dev/null; then
+  eval "$(github-copilot-cli alias -- "$0")"
+fi
+
+unsetopt NO_share_history
+setopt share_history
+
+zstyle -a ':completion:*:hosts' hosts _existing_hosts
+_ssh_config_included=${=${${${${(@M)${(f)"$(cat ${${${(@M)${(f)"$(cat ~/.ssh/config 2> /dev/null)"}:#Include *}#Include }//\~/$HOME})"}:#Host *}#Host }:#*\**}:#*\?*}}
+_existing_hosts=($_existing_hosts $_ssh_config_included)
+zstyle ':completion:*:hosts' hosts $_existing_hosts
+
+autoload -Uz promptinit && promptinit && prompt powerlevel10k
+source ~/.p10k.zsh

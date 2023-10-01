@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# Install asdf plugins
+
+source /tmp/chezmoi-utils.sh
+
+printf "${green}[30 - macOS] ${reset}"
+{{- if or (lt 30 (atoi (env "SCRIPTS_START_AT"))) (env "SKIP_ASDF_PLUGINS") }}
+echo "Skip installing asdf plugins"
+exit 0
+{{ else }}
+echo "Install asdf plugins"
+{{- end }}
+
+{{ $plugins := dict
+  "nodejs"     "lts-hydrogen"
+  "pnpm"       "8.8.0"
+  "yarn"       "1.22.19"
+  "direnv"     "latest"
+  "rust"       "latest"
+}}
+
+# Add plugins & install versions
+{{ range (keys $plugins) -}}
+  {{- $key := . }}
+  {{- $val := get $plugins $key }}
+
+  asdf plugin-add {{ $key }} || true
+
+  {{- if not (eq $val "None") }}
+    asdf install {{ $key }} {{ $val }} || true
+    asdf global {{ $key }} {{ $val }} || true
+  {{- end -}}
+{{ end -}}
+
+asdf reshim

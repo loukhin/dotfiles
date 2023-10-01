@@ -1,0 +1,47 @@
+#
+# Antidote
+#
+
+zstyle ':antidote:bundle' file ${ZDOTDIR:-~}/.zplugins
+zstyle ':antidote:static' file ${ZDOTDIR:-~}/.zplugins.zsh
+zstyle ':antidote:bundle' use-friendly-names 'yes'
+zstyle ':antidote:plugin:*' defer-options '-p'
+
+#
+# Support `Include` in ssh config
+#
+# zstyle -e ':completion:*:hosts' hosts 'reply=(
+#   ${=${${${${(@M)${(f)"$(cat ${${${(@M)${(f)"$(cat ~/.ssh/config 2> /dev/null)"}:#Include *}#Include }//\~/$HOME})"}:#Host *}#Host }:#*\**}:#*\?*}}
+# )'
+
+#
+# Prezto
+#
+
+# zstyle ':prezto:module:autosuggestions:color' found 'fg=60'
+# zstyle ':prezto:*:*' color 'yes'
+# zstyle ':prezto:module:history' histfile "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/zsh_history"
+# zstyle ':prezto:module:*:alias' skip 'yes'
+# zstyle ':prezto:module:editor' key-bindings 'emacs'
+# zstyle ':prezto:module:editor' dot-expansion 'yes'
+
+#
+# Editor
+#
+
+# Set this to whatever you want to use to edit a command
+# zstyle :zle:edit-command-line editor hx
+
+#
+# Zephyr
+#
+
+# zstyle ':zephyr:plugin:prompt' theme zephyr
+
+#
+# Local
+#
+
+# if [[ -r $DOTFILES/local/zsh/zstyles.local.zsh ]]; then
+#   . $DOTFILES/local/zsh/zstyles.local.zsh
+# fi
