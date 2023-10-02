@@ -4,12 +4,12 @@
 {{- $computerName := "Moon" -}}
 
 {{- if stdinIsATTY -}}
-{{-   $customize := promptBoolOnce "Update settings" false -}}
+{{-   $customize := promptBoolOnce . "customize" "Update settings" false -}}
 {{-   $computerName = promptStringOnce . "computerName" "What's this" $computerName -}}
 {{-   if $customize -}}
-{{-     $name = promptStringOnce "Your name" $name -}}
-{{-     $username = promptStringOnce "What about username" .chezmoi.username -}}
-{{-     $email = promptStringOnce "And email" $email -}}
+{{-     $name = promptStringOnce . "name" "Your name" $name -}}
+{{-     $username = promptStringOnce . "username" "What about username" .chezmoi.username -}}
+{{-     $email = promptStringOnce . "email" "And email" $email -}}
 {{-   end -}}
 {{- end -}}
 
