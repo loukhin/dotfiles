@@ -1,10 +1,20 @@
 {{- $name := "Supakit Khawmeewong" -}}
 {{- $email := "supakit.kmw@gmail.com" -}}
 {{- $username := "loukhin" -}}
-{{- $computer_name := promptString "What's this" "Hubble" -}}
+{{- $computerName := "Moon" -}}
+
+{{- if stdinIsATTY -}}
+{{-   $customize := promptBoolOnce "Update settings" false -}}
+{{-   $computerName = promptStringOnce . "computerName" "What's this" $computerName -}}
+{{-   if $customize -}}
+{{-     $name = promptStringOnce "Your name" $name -}}
+{{-     $username = promptStringOnce "What about username" .chezmoi.username -}}
+{{-     $email = promptStringOnce "And email" $email -}}
+{{-   end -}}
+{{- end -}}
 
 [data]
   name = {{ $name | quote }}
   email = {{ $email | quote }}
   username = {{ $username | quote }}
-  computer_name = {{ $computer_name | quote }}
+  computerName = {{ $computerName | quote }}
