@@ -1,6 +1,3 @@
-zimfw/exa
-Aloxaf/fzf-tab
-
 romkatv/powerlevel10k kind:fpath
 eza-community/eza path:completions/zsh kind:fpath
 
@@ -15,6 +12,9 @@ mattmc3/zephyr path:plugins/terminal
 
 belak/zsh-utils path:history
 belak/zsh-utils path:editor
+
+zimfw/exa
+Aloxaf/fzf-tab
 
 zdharma-continuum/fast-syntax-highlighting kind:defer
 zsh-users/zsh-autosuggestions kind:defer
