@@ -48,6 +48,11 @@ fi
 # zstyles
 [[ -r ~/.zstyles ]] && . ~/.zstyles
 
+fpath=(
+  ~/.config/zsh/completions
+  $fpath
+)
+
 # use antidote for plugin management
 export ANTIDOTE_HOME=${HOME}/.antidote
 [[ -d $ANTIDOTE_HOME ]] ||
