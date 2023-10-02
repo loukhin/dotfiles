@@ -85,10 +85,10 @@ HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='fg=red,bold'
 bindkey "$key_info[Up]" history-substring-search-up
 bindkey "$key_info[Down]" history-substring-search-down
 
-zstyle -a ':completion:*:hosts' hosts _existing_hosts
-_ssh_config_included=${=${${${${(@M)${(f)"$(cat ${${${(@M)${(f)"$(cat ~/.ssh/config 2> /dev/null)"}:#Include *}#Include }//\~/$HOME})"}:#Host *}#Host }:#*\**}:#*\?*}}
-_existing_hosts=($_existing_hosts $_ssh_config_included)
-zstyle ':completion:*:hosts' hosts $_existing_hosts
+# zstyle -a ':completion:*:hosts' hosts _existing_hosts
+# _ssh_config_included=${=${${${${(@M)${(f)"$(cat ${${${(@M)${(f)"$(cat ~/.ssh/config 2> /dev/null)"}:#Include *}#Include }//\~/$HOME})"}:#Host *}#Host }:#*\**}:#*\?*}}
+# _existing_hosts=($_existing_hosts $_ssh_config_included)
+# zstyle ':completion:*:hosts' hosts $_existing_hosts
 
 zstyle ':completion:*:git-checkout:*' sort false
 zstyle -d ':completion:*' format
