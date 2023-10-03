@@ -56,6 +56,8 @@ unsetopt auto_menu         # show completion menu on successive tab press
 setopt complete_in_word
 setopt always_to_end
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 path=(
   $HOME/{,s}bin(N)
   /opt/{homebrew,local}/{,s}bin(N)
@@ -65,11 +67,27 @@ path=(
 
 fpath=(
   /opt/{homebrew,local}/share/zsh/site-functions
-  ~/completions
+  ~/.config/zsh/completions
   $fpath
 )
 
 # alias l='ls -lah' ll='ls -lh'
+
+# Zoxide : prompt hook mode
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh --hook prompt)"
+fi
+
+if command -v pyenv &> /dev/null; then
+  eval "$(pyenv init -)"
+fi
+
+if command -v github-copilot-cli alias &> /dev/null; then
+  eval "$(github-copilot-cli alias -- "$0")"
+fi
+
+# Initialize modules.
+source ${ZIM_HOME}/init.zsh
 
 h=()
 if [[ -r ~/.ssh/config ]]; then
@@ -106,21 +124,5 @@ if [[ -n "$key_info" ]]; then
   bindkey "$key_info[Up]" history-substring-search-up
   bindkey "$key_info[Down]" history-substring-search-down
 fi
-
-# Zoxide : prompt hook mode
-if command -v zoxide &> /dev/null; then
-  eval "$(zoxide init zsh --hook prompt)"
-fi
-
-if command -v pyenv &> /dev/null; then
-  eval "$(pyenv init -)"
-fi
-
-if command -v github-copilot-cli alias &> /dev/null; then
-  eval "$(github-copilot-cli alias -- "$0")"
-fi
-
-# Initialize modules.
-source ${ZIM_HOME}/init.zsh
 
 source ~/.p10k.zsh
