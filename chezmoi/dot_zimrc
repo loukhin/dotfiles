@@ -1,16 +1,18 @@
-zmodule termtitle
-zmodule asdf
-zmodule input
-zmodule utility
-zmodule exa
-zmodule Aloxaf/fzf-tab
-zmodule romkatv/powerlevel10k
-zmodule mattmc3/zephyr --root plugins/homebrew
-zmodule mattmc3/zephyr --root plugins/macos
-
 zmodule zsh-users/zsh-completions --fpath src
 zmodule eza-community/eza --fpath completions/zsh
 
+zmodule mattmc3/zephyr --root plugins/color
+zmodule mattmc3/zephyr --root plugins/homebrew
+zmodule mattmc3/zephyr --root plugins/macos
+zmodule belak/zsh-utils --root editor
+zmodule Aloxaf/fzf-tab
+zmodule romkatv/powerlevel10k
+
+zmodule utility
+zmodule termtitle
+zmodule asdf
+zmodule input
+zmodule exa
 zmodule completion
 
 zmodule zsh-users/zsh-history-substring-search

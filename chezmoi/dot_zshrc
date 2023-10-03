@@ -22,6 +22,12 @@ if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-$HOME}/.zimrc ]]; then
   source ${ZIM_HOME}/zimfw.zsh init
 fi
 
+if [[ -z "$LESS" ]]; then
+  export LESS='-g -i -M -R -S -w -z-4'
+fi
+export DELTA_PAGER="less $LESS"
+export PAGER=delta
+
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='fg=39,bold'
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='fg=red,bold'
 
@@ -50,9 +56,6 @@ unsetopt auto_menu         # show completion menu on successive tab press
 setopt complete_in_word
 setopt always_to_end
 
-# Initialize modules.
-source ${ZIM_HOME}/init.zsh
-
 path=(
   $HOME/{,s}bin(N)
   /opt/{homebrew,local}/{,s}bin(N)
@@ -61,7 +64,7 @@ path=(
 )
 
 fpath=(
-  $HOMEBREW_PREFIX/share/zsh/site-functions
+  /opt/{homebrew,local}/share/zsh/site-functions
   ~/completions
   $fpath
 )
@@ -116,5 +119,8 @@ fi
 if command -v github-copilot-cli alias &> /dev/null; then
   eval "$(github-copilot-cli alias -- "$0")"
 fi
+
+# Initialize modules.
+source ${ZIM_HOME}/init.zsh
 
 source ~/.p10k.zsh
