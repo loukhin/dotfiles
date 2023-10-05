@@ -92,6 +92,12 @@ source ${ZIM_HOME}/init.zsh
 h=()
 if [[ -r ~/.ssh/config ]]; then
   h=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
+  include_h=($h ${${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Include *}#Include }//\~/$HOME}:#*[*?]*})
+  for i in $include_h; do
+    if [[ -r $i ]]; then
+      h=($h ${${${(@M)${(f)"$(cat $i)"}:#Host *}#Host }:#*[*?]*})
+    fi
+  done
 fi
 if [[ -r ~/.ssh/known_hosts ]]; then
   h=($h ${${${(f)"$(cat ~/.ssh/known_hosts{,2} || true)"}%%\ *}%%,*}) 2>/dev/null
