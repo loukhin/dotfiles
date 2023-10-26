@@ -89,21 +89,19 @@ fi
 # Initialize modules.
 source ${ZIM_HOME}/init.zsh
 
-# completion
-zstyle ':completion:*' completer _expand _complete _ignored #_approximate
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-zstyle ':completion:*' menu select=2
-zstyle ':completion:*:-command-:*' tag-order '!parameters'
-zstyle ':completion:complete:*:options' sort false
-
-# ssh completion
-# adapted from: https://github.com/mattmc3/zephyr/blob/main/plugins/completion/functions/compstyle_zephyr_setup
 zstyle -e ':completion:*:hosts' hosts 'reply=(
   ${=${=${=${${(f)"$(cat {/etc/ssh/ssh_,~/.ssh/}known_hosts(|2)(N) 2> /dev/null)"}%%[#| ]*}//\]:[0-9]*/ }//,/ }//\[/ }
   ${=${(f)"$(cat /etc/hosts(|)(N) <<(ypcat hosts 2> /dev/null))"}%%(\#${_etc_host_ignores:+|${(j:|:)~_etc_host_ignores}})*}
   ${=${${${${(@M)${(f)"$(cat ~/.ssh/config 2> /dev/null)"}:#Host *}#Host }:#*\**}:#*\?*}}
   ${=${${${${(@M)${(f)"$(cat ${=${${${${(@M)${(f)"$(cat ~/.ssh/config 2> /dev/null)"}:#Include *}#Include }:#*\**}:#*\?*}//\~/$HOME} 2> /dev/null)"}:#Host *}#Host }:#*\**}:#*\?*}}
 )'
+
+# completion
+zstyle ':completion:*' completer _expand _complete _ignored #_approximate
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*:-command-:*' tag-order '!parameters'
+zstyle ':completion:complete:*:options' sort false
 zstyle ':completion:*:(ssh|scp|rsync):*' tag-order 'hosts:-host:host hosts:-domain:domain hosts:-ipaddr:ip\ address *'
 zstyle ':completion:*:(scp|rsync):*' group-order users files all-files hosts-domain hosts-host hosts-ipaddr
 zstyle ':completion:*:ssh:*' group-order users hosts-domain hosts-host users hosts-ipaddr
