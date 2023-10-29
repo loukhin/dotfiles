@@ -1,0 +1,129 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+ZIM_HOME=${ZDOTDIR:-$HOME}/.zim
+# Download zimfw plugin manager if missing.
+if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
+  ZIMFW_URL="https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh"
+  if command -v curl >/dev/null 2>&1; then
+    curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh ${ZIMFW_URL}
+  else
+    mkdir -p ${ZIM_HOME} && wget -nv -O ${ZIM_HOME}/zimfw.zsh ${ZIMFW_URL}
+  fi
+  unset ZIMFW_URL
+fi
+
+# Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
+if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-$HOME}/.zimrc ]]; then
+  source ${ZIM_HOME}/zimfw.zsh init
+fi
+
+if [[ -z "$LESS" ]]; then
+  export LESS='-g -i -M -R -S -w -z-4'
+fi
+export DELTA_PAGER="less $LESS"
+export PAGER=delta
+
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='fg=39,bold'
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='fg=red,bold'
+
+HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
+HISTSIZE=10000000
+SAVEHIST=10000000
+
+setopt BANG_HIST                 # Treat the '!' character specially during expansion.
+setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
+setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
+setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
+setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
+setopt HIST_BEEP                 # Beep when accessing nonexistent history.
+setopt INTERACTIVE_COMMENTS      # Allow comments in interactive sessions.
+setopt auto_cd
+unsetopt menu_complete   # do not autoselect the first completion entry
+unsetopt flowcontrol
+unsetopt auto_menu         # show completion menu on successive tab press
+setopt complete_in_word
+setopt always_to_end
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+path=(
+  $HOME/{,s}bin(N)
+  /opt/{homebrew,local}/{,s}bin(N)
+  /usr/local/{,s}bin(N)
+  $path
+)
+
+fpath=(
+  /opt/{homebrew,local}/share/zsh/site-functions
+  ~/.config/zsh/completions
+  $fpath
+)
+
+# alias l='ls -lah' ll='ls -lh'
+
+# Zoxide : prompt hook mode
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh --hook prompt)"
+fi
+
+if command -v pyenv &> /dev/null; then
+  eval "$(pyenv init -)"
+fi
+
+if command -v github-copilot-cli alias &> /dev/null; then
+  eval "$(github-copilot-cli alias -- "$0")"
+fi
+
+# Initialize modules.
+source ${ZIM_HOME}/init.zsh
+
+zstyle -e ':completion:*:hosts' hosts 'reply=(
+  ${=${=${=${${(f)"$(cat {/etc/ssh/ssh_,~/.ssh/}known_hosts(|2)(N) 2> /dev/null)"}%%[#| ]*}//\]:[0-9]*/ }//,/ }//\[/ }
+  ${=${(f)"$(cat /etc/hosts(|)(N) <<(ypcat hosts 2> /dev/null))"}%%(\#${_etc_host_ignores:+|${(j:|:)~_etc_host_ignores}})*}
+  ${=${${${${(@M)${(f)"$(cat ~/.ssh/config 2> /dev/null)"}:#Host *}#Host }:#*\**}:#*\?*}}
+  ${=${${${${(@M)${(f)"$(cat ${=${${${${(@M)${(f)"$(cat ~/.ssh/config 2> /dev/null)"}:#Include *}#Include }:#*\**}:#*\?*}//\~/$HOME} 2> /dev/null)"}:#Host *}#Host }:#*\**}:#*\?*}}
+)'
+
+# completion
+zstyle ':completion:*' completer _expand _complete _ignored #_approximate
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*:-command-:*' tag-order '!parameters'
+zstyle ':completion:complete:*:options' sort false
+zstyle ':completion:*:(ssh|scp|rsync):*' tag-order 'hosts:-host:host hosts:-domain:domain hosts:-ipaddr:ip\ address *'
+zstyle ':completion:*:(scp|rsync):*' group-order users files all-files hosts-domain hosts-host hosts-ipaddr
+zstyle ':completion:*:ssh:*' group-order users hosts-domain hosts-host users hosts-ipaddr
+zstyle ':completion:*:(ssh|scp|rsync):*:hosts-host' ignored-patterns '*(.|:)*' loopback ip6-loopback localhost ip6-localhost broadcasthost
+zstyle ':completion:*:(ssh|scp|rsync):*:hosts-domain' ignored-patterns '<->.<->.<->.<->' '^[-[:alnum:]]##(.[-[:alnum:]]##)##' '*@*'
+zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<->.<->.<->|(|::)([[:xdigit:].]##:(#c,2))##(|%*))' '127.0.0.<->' '255.255.255.255' '::1' 'fe80::*'
+
+zstyle ':zim:termtitle' hooks 'preexec' 'precmd'
+zstyle ':zim:termtitle:preexec' format '${${(A)=1}[1]}'
+zstyle ':zim:termtitle:precmd'  format '%n@%m: %~'
+
+zstyle ':completion:*:git-checkout:*' sort false
+zstyle -d ':completion:*' format
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+zstyle ':fzf-tab:*' switch-group '<' '>'
+zstyle ':fzf-tab:*' prefix ''
+
+if [[ -n "$key_info" ]]; then
+  bindkey "$key_info[Up]" history-substring-search-up
+  bindkey "$key_info[Down]" history-substring-search-down
+fi
+
+source ~/.p10k.zsh
