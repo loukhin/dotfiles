@@ -15,7 +15,7 @@ echo "Install common macOS packages"
 set -eufo pipefail
 
 {{ $taps := list
-  "homebrew/cask"
+  "artginzburg/tap"
 -}}
 
 {{ $brews := list
@@ -48,7 +48,7 @@ set -eufo pipefail
   "shellcheck"
   "zoxide"
 
-  "artginzburg/tap/sudo-touchid"
+  "sudo-touchid"
 -}}
 
 {{ $casks := list
