@@ -2,7 +2,13 @@
 
 set -eu
 
-sudo xcode-select --install
+# Install XCode Command Line Tools.
+sudo xcode-select --install &> /dev/null
+
+# Wait until XCode Command Line Tools installation has finished.
+until $(xcode-select --print-path &> /dev/null); do
+  sleep 5;
+done
 
 if ! chezmoi="$(command -v chezmoi)"; then
   bin_dir="${HOME}/.local/bin"
