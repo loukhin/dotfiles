@@ -26,7 +26,7 @@ echo "Install asdf plugins"
 
   asdf plugin-add {{ $key }} || true
 
-  {{- if not (eq $val "None") }}
+  {{ if not (eq $val "None") }}
     asdf install {{ $key }} {{ $val }} || true
     asdf global {{ $key }} {{ $val }} || true
   {{- end -}}

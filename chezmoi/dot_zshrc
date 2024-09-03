@@ -79,11 +79,7 @@ if command -v zoxide &> /dev/null; then
 fi
 
 if command -v pyenv &> /dev/null; then
-  eval "$(pyenv init -)"
-fi
-
-if command -v github-copilot-cli alias &> /dev/null; then
-  eval "$(github-copilot-cli alias -- "$0")"
+  eval "$(pyenv init - --no-rehash zsh)"
 fi
 
 # Initialize modules.
@@ -111,7 +107,7 @@ zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<-
 
 zstyle ':zim:termtitle' hooks 'preexec' 'precmd'
 zstyle ':zim:termtitle:preexec' format '${${(A)=1}[1]}'
-zstyle ':zim:termtitle:precmd'  format '%n@%m: %~'
+zstyle ':zim:termtitle:precmd'  format '%n@%m: %1~'
 
 zstyle ':completion:*:git-checkout:*' sort false
 zstyle -d ':completion:*' format
@@ -127,3 +123,7 @@ if [[ -n "$key_info" ]]; then
 fi
 
 source ~/.p10k.zsh
+
+# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
+
+eval "$(direnv hook zsh)"

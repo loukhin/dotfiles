@@ -42,6 +42,7 @@ set -eufo pipefail
   "chezmoi"
   "direnv"
   "eza"
+  "fileicon"
   "fzf"
   "gpg"
   "jq"
@@ -72,4 +73,4 @@ cask "{{ . }}"
 {{ end }}
 EOF
 
-sudo brew services start sudo-touchid
+sudo brew services start sudo-touchid || true

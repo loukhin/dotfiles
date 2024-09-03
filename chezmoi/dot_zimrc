@@ -7,6 +7,7 @@ zmodule mattmc3/zephyr --root plugins/macos
 zmodule belak/zsh-utils --root editor
 zmodule Aloxaf/fzf-tab
 zmodule romkatv/powerlevel10k
+#zmodule agkozak/agkozak-zsh-prompt
 
 zmodule utility
 zmodule termtitle

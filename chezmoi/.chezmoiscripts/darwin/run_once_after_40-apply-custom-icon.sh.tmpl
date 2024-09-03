@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# Apply custom app icon
+
+source /tmp/chezmoi-utils.sh
+
+printf "${green}[40 - macOS] ${reset}"
+{{- if or (lt 40 (atoi (env "SCRIPTS_START_AT"))) (env "SKIP_APPS") }}
+echo "Skip apply custom app icon"
+exit 0
+{{ else }}
+echo "Apply custom app icon"
+{{- end }}
+
+set -eufo pipefail
+
+{{ $app := list
+  "Discord"
+  "iTerm"
+  "Messenger"
+  "Orion"
+  "Visual Studio Code"
+  "Zed"
+-}}
+
+{{ range ($app | sortAlpha | uniq) -}}
+curl -Lo "/tmp/custom-icon-{{ . }}.png" "https://raw.githubusercontent.com/loukhin/custom-app-icons/main/mac-apps/{{ . | replaceAllRegex " " "%20" }}.png"
+fileicon set "/Applications/{{ . }}.app" "/tmp/custom-icon-{{ . }}.png"
+rm "/tmp/custom-icon-{{ . }}.png"
+{{ end }}

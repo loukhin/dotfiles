@@ -10,6 +10,10 @@
 	required = true
 [ghq]
 	root = ~/Code
+[include]
+    path = ~/.config/git/delta/themes.gitconfig
+[delta]
+    features = hoopoe
 
 [url "ssh://git@github.com/{{ .username }}"]
   insteadOf = https://github.com/{{ .username }}
