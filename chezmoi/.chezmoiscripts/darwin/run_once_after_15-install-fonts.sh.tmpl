@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# Install fonts
+
+source /tmp/chezmoi-utils.sh
+
+printf "${green}[15 - macOS] ${reset}"
+{{- if or (lt 15 (atoi (env "SCRIPTS_START_AT"))) (env "SKIP_BREW") }}
+echo "Skip installing fonts"
+exit 0
+{{ else }}
+echo "Install fonts"
+{{- end }}
+
+set -eufo pipefail
+
+{{ $taps := list -}}
+
+{{ $brews := list -}}
+
+{{ $casks := list
+  "font-monaspace"
+  "font-symbols-only-nerd-font"
+-}}
+
+brew bundle --no-lock --file=/dev/stdin <<EOF || :
+{{ range ($taps | sortAlpha | uniq) -}}
+tap "{{ . }}"
+{{ end }}
+{{ range ($brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end }}
+{{ range ($casks | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end }}
+EOF

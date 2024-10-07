@@ -8,6 +8,10 @@
 	<false/>
 	<key>AlternateMouseScroll</key>
 	<true/>
+	<key>CheckTestRelease</key>
+	<true/>
+	<key>ClickToSelectCommand</key>
+	<false/>
 	<key>ColoredUnselectedTabTextProminence</key>
 	<real>0.20000000298023224</real>
 	<key>CompactMinimalTabBarHeight</key>
@@ -1706,6 +1710,12 @@
 	<false/>
 	<key>EnableDivisionView</key>
 	<false/>
+	<key>ExtraSpaceBeforeCompactTopTabBar</key>
+	<real>0.0</real>
+	<key>ForceAntialiasingOnRetina</key>
+	<false/>
+	<key>GenerativeAIAllowed</key>
+	<false/>
 	<key>GlobalKeyMap</key>
 	<dict>
 		<key>0x19-0x60000-0x0</key>
@@ -1873,16 +1883,22 @@
 	<false/>
 	<key>HideTab</key>
 	<false/>
+	<key>HideTabNumber</key>
+	<false/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
 	<true/>
+	<key>MinimalDeslectedColoredTabAlpha</key>
+	<real>0.5</real>
 	<key>MinimalEdgeDragSize</key>
 	<real>100</real>
+	<key>MinimalSelectedTabUnderlineProminence</key>
+	<real>0.0</real>
 	<key>MinimalSplitPaneDividerProminence</key>
-	<real>0.25</real>
+	<real>0.10000000149011612</real>
 	<key>MinimalTabStyleBackgroundColorDifference</key>
 	<real>0.029999999329447746</real>
 	<key>MinimalTabStyleOutlineStrength</key>
-	<real>0.10000000149011612</real>
+	<real>0.05000000074505806</real>
 	<key>MinimalTabStyleTreatLeftInsetAsPartOfFirstTab</key>
 	<false/>
 	<key>MinimumTabDragDistance</key>
@@ -3192,7 +3208,7 @@
 			<key>Normal Font</key>
 			<string>MonaspaceNeon-Regular 12</string>
 			<key>Only The Default BG Color Uses Transparency</key>
-			<false/>
+			<true/>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -3404,12 +3420,20 @@
 	</dict>
 	<key>PreserveWindowSizeWhenTabBarVisibilityChanges</key>
 	<true/>
+	<key>PromptOnQuit</key>
+	<false/>
 	<key>RemoveAddTabButton</key>
+	<true/>
+	<key>ResetSGROnPrompt</key>
 	<true/>
 	<key>SeparateWindowTitlePerTab</key>
 	<true/>
 	<key>ShowFullScreenTabBar</key>
 	<true/>
+	<key>ShowLocationsInScrollbar</key>
+	<true/>
+	<key>ShowMarksInScrollbar</key>
+	<false/>
 	<key>ShowPaneTitles</key>
 	<false/>
 	<key>ShowWindowTitleWhenTabBarInvisible</key>
@@ -3429,9 +3453,9 @@
 	<key>TabViewType</key>
 	<integer>0</integer>
 	<key>TerminalMargin</key>
-	<integer>7</integer>
+	<integer>5</integer>
 	<key>TerminalVMargin</key>
-	<integer>7</integer>
+	<integer>5</integer>
 	<key>UnderlineHyperlinks</key>
 	<false/>
 	<key>UseBorder</key>
@@ -3439,11 +3463,13 @@
 	<key>UseCustomTabBarFontSize</key>
 	<true/>
 	<key>UseExperimentalFontMetrics</key>
-	<true/>
+	<false/>
 	<key>VisualIndicatorForEsc</key>
 	<false/>
 	<key>WindowNumber</key>
 	<true/>
+	<key>ZippyTextDrawing</key>
+	<false/>
 	<key>disableMetalWhenUnplugged</key>
 	<false/>
 	<key>findMode_iTerm</key>
@@ -3451,6 +3477,8 @@
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
+	<false/>
+	<key>metalMaximizeThroughput</key>
 	<false/>
 </dict>
 </plist>

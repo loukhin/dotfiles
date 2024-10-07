@@ -4,7 +4,7 @@ zmodule eza-community/eza --fpath completions/zsh
 zmodule mattmc3/zephyr --root plugins/color
 zmodule mattmc3/zephyr --root plugins/homebrew
 zmodule mattmc3/zephyr --root plugins/macos
-zmodule belak/zsh-utils --root editor
+#zmodule belak/zsh-utils --root editor
 zmodule Aloxaf/fzf-tab
 zmodule romkatv/powerlevel10k
 #zmodule agkozak/agkozak-zsh-prompt
