@@ -15,13 +15,8 @@ echo "Apply custom app icon"
 set -eufo pipefail
 
 {{ $app := list
-  "Discord"
-  "iTerm"
-  "Messenger"
+  "kitty"
   "Orion"
-  "Spotify"
-  "Visual Studio Code"
-  "Zed"
 -}}
 
 {{ range ($app | sortAlpha | uniq) -}}

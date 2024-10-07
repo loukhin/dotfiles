@@ -104,6 +104,7 @@
     # time                  # current time
     # =========================[ Line #2 ]=========================
     newline
+    aws_sso
     # ip                    # ip address and bandwidth usage for a specified network interface
     # public_ip             # public IP address
     # proxy                 # system-wide http/https/ftp proxy
@@ -1329,6 +1330,13 @@
       '*'       DEFAULT)
   typeset -g POWERLEVEL9K_AWS_DEFAULT_FOREGROUND=208
   # typeset -g POWERLEVEL9K_AWS_DEFAULT_VISUAL_IDENTIFIER_EXPANSION='⭐'
+
+  function prompt_aws_sso() {
+    if [[ -z "${AWS_SSO_PROFILE}" ]]; then
+      return
+    fi
+    p10k segment -f 208 -i '' -t "$AWS_SSO_PROFILE"
+  }
 
   # AWS segment format. The following parameters are available within the expansion.
   #

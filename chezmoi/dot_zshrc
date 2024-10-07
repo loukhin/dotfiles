@@ -73,6 +73,10 @@ fpath=(
 
 # alias l='ls -lah' ll='ls -lh'
 
+autoload -Uz +X bashcompinit && bashcompinit
+# Initialize modules.
+source ${ZIM_HOME}/init.zsh
+
 # Zoxide : prompt hook mode
 if command -v zoxide &> /dev/null; then
   eval "$(zoxide init zsh --hook prompt)"
@@ -81,9 +85,6 @@ fi
 if command -v pyenv &> /dev/null; then
   eval "$(pyenv init - --no-rehash zsh)"
 fi
-
-# Initialize modules.
-source ${ZIM_HOME}/init.zsh
 
 zstyle -e ':completion:*:hosts' hosts 'reply=(
   ${=${=${=${${(f)"$(cat {/etc/ssh/ssh_,~/.ssh/}known_hosts(|2)(N) 2> /dev/null)"}%%[#| ]*}//\]:[0-9]*/ }//,/ }//\[/ }
@@ -124,6 +125,6 @@ fi
 
 source ~/.p10k.zsh
 
-# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
 
 eval "$(direnv hook zsh)"
