@@ -33,10 +33,10 @@
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
     # os_icon               # os identifier
-    dir                     # current directory
-    vcs                     # git status
+    # dir                     # current directory
+    # vcs                     # git status
     # =========================[ Line #2 ]=========================
-    newline                 # \n
+    # newline                 # \n
     prompt_char             # prompt symbol
   )
 
@@ -103,7 +103,9 @@
     # taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
     # time                  # current time
     # =========================[ Line #2 ]=========================
-    newline
+    # newline
+    dir                     # current directory
+    vcs                     # git status
     aws_sso
     # ip                    # ip address and bandwidth usage for a specified network interface
     # public_ip             # public IP address
@@ -211,19 +213,19 @@
 
   ##################################[ dir: current directory ]##################################
   # Default current directory color.
-  typeset -g POWERLEVEL9K_DIR_FOREGROUND=red
+  typeset -g POWERLEVEL9K_DIR_FOREGROUND=#1e66f5
   # If directory is too long, shorten some of its segments to the shortest possible unique
   # prefix. The shortened directory can be tab-completed to the original.
-  typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_unique
+  typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_last
   # Replace removed segment suffixes with this symbol.
   typeset -g POWERLEVEL9K_SHORTEN_DELIMITER=
   # Color of the shortened directory segments.
   typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=196
   # Color of the anchor directory segments. Anchor segments are never shortened. The first
   # segment is always an anchor.
-  typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=yellow
+  typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=#7287fd
   # Display anchor directory segments in bold.
-  typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=false
+  typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
   # Don't shorten directories that contain any of these files. They are anchors.
   local anchor_files=(
     .bzr
@@ -372,10 +374,10 @@
     if (( $1 )); then
       # Styling for up-to-date Git status.
       local       meta='%f'     # default foreground
-      local      clean='%76F'   # green foreground
-      local   modified='%178F'  # yellow foreground
-      local  untracked='%39F'   # blue foreground
-      local conflicted='%196F'  # red foreground
+      local      clean='%F{green}'   # green foreground
+      local   modified='%F{yellow}'  # yellow foreground
+      local  untracked='%F{blue}'   # blue foreground
+      local conflicted='%F{red}'  # red foreground
     else
       # Styling for incomplete and stale Git status.
       local       meta='%244F'  # grey foreground
