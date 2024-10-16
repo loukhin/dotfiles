@@ -16,7 +16,6 @@ zmodule input
 zmodule exa
 zmodule completion
 
-zmodule ~/.config/zsh/includes/ --source  ~/.config/zsh/includes/*.zsh
 zmodule zsh-users/zsh-history-substring-search
 zmodule zdharma-continuum/fast-syntax-highlighting
 zmodule zsh-users/zsh-autosuggestions

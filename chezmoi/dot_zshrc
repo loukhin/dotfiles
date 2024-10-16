@@ -77,6 +77,10 @@ autoload -Uz +X bashcompinit && bashcompinit
 # Initialize modules.
 source ${ZIM_HOME}/init.zsh
 
+for file in ~/.config/zsh/includes/*.zsh; do
+    source "$file"
+done
+
 # Zoxide : prompt hook mode
 if command -v zoxide &> /dev/null; then
   eval "$(zoxide init zsh --hook prompt)"
