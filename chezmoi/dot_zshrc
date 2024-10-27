@@ -60,6 +60,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 path=(
   $HOME/{,s}bin(N)
+  $HOME/.config/path(N)
   /opt/{homebrew,local}/{,s}bin(N)
   /usr/local/{,s}bin(N)
   $path
