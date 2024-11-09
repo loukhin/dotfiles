@@ -33,10 +33,10 @@
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
     # os_icon               # os identifier
-    # dir                     # current directory
-    # vcs                     # git status
+    dir                     # current directory
+    vcs                     # git status
     # =========================[ Line #2 ]=========================
-    # newline                 # \n
+    newline                 # \n
     prompt_char             # prompt symbol
   )
 
@@ -103,9 +103,9 @@
     # taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
     # time                  # current time
     # =========================[ Line #2 ]=========================
-    # newline
-    dir                     # current directory
-    vcs                     # git status
+    newline
+    # dir                     # current directory
+    # vcs                     # git status
     aws_sso
     # ip                    # ip address and bandwidth usage for a specified network interface
     # public_ip             # public IP address
